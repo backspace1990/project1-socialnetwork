@@ -1,0 +1,14 @@
+
+.content img{
+    height: 250px;
+    width: 600px;
+}
+
+
+.descriptionBlock img{
+    width: 100px;
+    height: 100px;
+}
+.descriptionBlock{
+    padding: 10px;
+}
