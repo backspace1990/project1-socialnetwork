@@ -7,7 +7,7 @@ let store = {
                 {id: 1, message: 'Blabla?', likesCount: '35'},
                 {id: 2, message: 'Da da!!', likesCount: '67'}
             ],
-            newPostText: 'it-kamasutra.com'
+            newPostText: '',
         },
         dialogsPage: {
             messagesData: [
@@ -18,6 +18,8 @@ let store = {
                 {id: 5, message: 'Yo'},
                 {id: 6, message: 'Yo'}
             ],
+            newMessageText:''
+            ,
             dialogsData: [
                 {id: 1, name: 'Dimych'},
                 {id: 2, name: 'Andrey'},
@@ -32,39 +34,42 @@ let store = {
     _callSubscriber() {
         console.log('state was changed');
     },
+
     getState(){
         return this._state;
     },
-    addPost() {
-        let newPost = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-    },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state)
-    },
-    addMessage() {
-        let newMessage = {
-            id: 7,
-            message: this._state.dialogsPage.newMessageText
-        };
-        this._state.dialogsPage.messagesData.push(newMessage);
-        this._state.dialogsPage.newMessageText='';
-        this._callSubscriber(this._state);
-    },
-    updateNewMessageText(newText) {
-        this._state.dialogsPage.newMessageText = newText;
-        this._callSubscriber(this._state)
-    },
     subscribe(observer) {
         this._callSubscriber = observer; //observer // publisher-subscriber //наблюдатель//addEventListener // degisim gozetleyicisi
+    },
+    dispatch(action){ //{type:'ADD-POST'}
+        if(action.type==='ADD-POST'){
+            let newPost = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        }else if(action.type==='UPDATE-NEW-POST-TEXT'){
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state)
+        }else if(action.type==='ADD-MESSAGE'){
+            let newMessage = {
+                id: 7,
+                message: this._state.dialogsPage.newMessageText,
+            };
+            this._state.dialogsPage.messagesData.push(newMessage);
+            this._state.dialogsPage.newMessageText = '';
+            this._callSubscriber(this._state);
+        }  else if(action.type==='UPDATE-NEW-MESSAGE-TEXT'){
+            this._state.dialogsPage.newMessageText = action.newText;
+            this._callSubscriber(this._state);
+        }
+
+
     }
+
 }
 
 export default store;
