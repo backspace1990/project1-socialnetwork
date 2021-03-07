@@ -5,23 +5,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import StoreContext from "./StoreContext";
+import {Provider} from "./StoreContext";
 
 export let rendererEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <StoreContext.Provider value={store}>
+            <Provider store={store}>
                 <App/>
-            </StoreContext.Provider>
+            </Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );
 };
 
-rendererEntireTree(store.getState());
+rendererEntireTree();
 store.subscribe(()=>{
-    let state=store.getState();
-    rendererEntireTree(state)
+    rendererEntireTree()
 });
 
 
