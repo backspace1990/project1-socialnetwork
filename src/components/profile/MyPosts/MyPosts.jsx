@@ -21,8 +21,7 @@ const MyPosts = (props) => {
                     <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText} placeholder='Enter your post'/>
                 </div>
                 <div>
-                    <button onClick={onAddPost}>Add post</button>
-                    <button>Remove</button>
+                    <button onClick={onAddPost} className={classes.profileaddbutton}>Add post</button>
                 </div>
             </div>
             <div className={classes.posts}>
